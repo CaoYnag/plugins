@@ -57,7 +57,6 @@ func generateClientID(containerID string, netName string, ifName string) string 
 // Allocate acquires an IP from a DHCP server for a specified container.
 // The acquired lease will be maintained until Release() is called.
 func (d *DHCP) Allocate(args *skel.CmdArgs, result *current.Result) error {
-	fmt.Println("CDHCP Daemon Allocate called")
 	conf := types.NetConf{}
 	if err := json.Unmarshal(args.StdinData, &conf); err != nil {
 		return fmt.Errorf("error parsing netconf: %v", err)
@@ -161,7 +160,6 @@ func getListener(socketPath string) (net.Listener, error) {
 func runDaemon(pidfilePath string, hostPrefix string, socketPath string) error {
 	// since other goroutines (on separate threads) will change namespaces,
 	// ensure the RPC server does not get scheduled onto those
-	fmt.Println("pidfile: " + pidfilePath + ", hostPrefix: " + hostPrefix + ", socketPath: " + socketPath)
 	runtime.LockOSThread()
 
 	// Write the pidfile
