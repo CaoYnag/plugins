@@ -1,4 +1,4 @@
-// Copyright 2018 CNI authors
+// Copyright 2016 CNI authors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,16 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package main_test
+package allocator_test
 
 import (
-	"testing"
-
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
+
+	"testing"
 )
 
-func TestStatic(t *testing.T) {
+func TestAllocator(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "plugins/ipam/static")
+	RunSpecs(t, "plugins/ipam/host-local/backend/allocator")
 }
