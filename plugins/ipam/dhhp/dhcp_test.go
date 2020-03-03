@@ -31,10 +31,10 @@ import (
 
 	"github.com/vishvananda/netlink"
 
-	"github.com/CaoYnag/dhcp4server"
-	"github.com/CaoYnag/dhcp4server/leasepool"
-	"github.com/CaoYnag/dhcp4server/leasepool/memorypool"
 	"github.com/d2g/dhcp4"
+	"github.com/d2g/dhcp4server"
+	"github.com/d2g/dhcp4server/leasepool"
+	"github.com/d2g/dhcp4server/leasepool/memorypool"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -68,8 +68,8 @@ func dhcpServerStart(netns ns.NetNS, leaseIP, serverIP net.IP, numLeases int, st
 	dhcpServer, err := dhcp4server.New(
 		net.IPv4(192, 168, 1, 1),
 		&lp,
-		dhcp4server.SetLocalAddr(net.UDPAddr{IP: net.IPv4(0, 0, 0, 0), Port: 77}),
-		dhcp4server.SetRemoteAddr(net.UDPAddr{IP: net.IPv4bcast, Port: 78}),
+		dhcp4server.SetLocalAddr(net.UDPAddr{IP: net.IPv4(0, 0, 0, 0), Port: 67}),
+		dhcp4server.SetRemoteAddr(net.UDPAddr{IP: net.IPv4bcast, Port: 68}),
 		dhcp4server.LeaseDuration(time.Minute*15),
 	)
 	if err != nil {
@@ -137,7 +137,7 @@ var _ = Describe("DHCP Operations", func() {
 
 		tmpDir, err = getTmpDir()
 		Expect(err).NotTo(HaveOccurred())
-		socketPath = filepath.Join(tmpDir, "cdhcp.sock")
+		socketPath = filepath.Join(tmpDir, "dhcp.sock")
 
 		// Create a new NetNS so we don't modify the host
 		var err error
@@ -360,7 +360,7 @@ func dhcpSetupOriginalNS() (chan bool, net.IPNet, string, ns.NetNS, ns.NetNS, er
 
 	tmpDir, err = getTmpDir()
 	Expect(err).NotTo(HaveOccurred())
-	socketPath = filepath.Join(tmpDir, "cdhcp.sock")
+	socketPath = filepath.Join(tmpDir, "dhcp.sock")
 
 	// Create a new NetNS so we don't modify the host
 	originalNS, err = testutils.NewNS()

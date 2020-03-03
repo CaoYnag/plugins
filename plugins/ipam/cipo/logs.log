@@ -1,0 +1,75 @@
+[CIPO]2020/03/03 14:48:32 cipo_test.go:48: resolv:  /tmp/cipo_artifacts314594659/resolv.conf
+[CIPO]2020/03/03 14:48:32 main.go:85: ADDING
+[CIPO]2020/03/03 14:48:32 main.go:164: DELETING
+[CIPO]2020/03/03 14:48:32 main.go:85: ADDING
+[CIPO]2020/03/03 14:48:32 main.go:85: ADDING
+[CIPO]2020/03/03 14:48:32 main.go:164: DELETING
+[CIPO]2020/03/03 14:48:32 main.go:164: DELETING
+[CIPO]2020/03/03 14:48:32 main.go:85: ADDING
+[CIPO]2020/03/03 14:48:32 main.go:164: DELETING
+[CIPO]2020/03/03 14:48:32 main.go:164: DELETING
+[CIPO]2020/03/03 14:48:32 main.go:85: ADDING
+[CIPO]2020/03/03 14:48:32 main.go:164: DELETING
+[CIPO]2020/03/03 14:48:32 main.go:85: ADDING
+[CIPO]2020/03/03 14:48:32 main.go:164: DELETING
+[CIPO]2020/03/03 14:48:32 main.go:85: ADDING
+[CIPO]2020/03/03 14:48:32 main.go:85: ADDING
+[CIPO]2020/03/03 14:48:32 main.go:85: ADDING
+[CIPO]2020/03/03 14:48:32 main.go:85: ADDING
+[CIPO]2020/03/03 14:48:32 main.go:85: ADDING
+[CIPO]2020/03/03 14:51:48 cipo_test.go:48: resolv:  /tmp/cipo_artifacts600159719/resolv.conf
+[CIPO]2020/03/03 14:51:48 main.go:85: ADDING
+[CIPO]2020/03/03 14:51:48 cipo_test.go:86: raw: {
+    "cniVersion": "0.3.1",
+    "ips": [
+        {
+            "version": "4",
+            "address": "10.1.2.2/24",
+            "gateway": "10.1.2.1"
+        },
+        {
+            "version": "6",
+            "address": "2001:db8:1::2/64",
+            "gateway": "2001:db8:1::1"
+        }
+    ],
+    "routes": [
+        {
+            "dst": "0.0.0.0/0"
+        },
+        {
+            "dst": "::/0"
+        },
+        {
+            "dst": "192.168.0.0/16",
+            "gw": "1.1.1.1"
+        },
+        {
+            "dst": "2001:db8:2::/64",
+            "gw": "2001:db8:3::1"
+        }
+    ],
+    "dns": {
+        "nameservers": [
+            "192.0.2.3"
+        ]
+    }
+}
+[CIPO]2020/03/03 14:51:48 cipo_test.go:87: r: IP:[{Version:4 Interface:<nil> Address:{IP:10.1.2.2 Mask:ffffff00} Gateway:10.1.2.1} {Version:6 Interface:<nil> Address:{IP:2001:db8:1::2 Mask:ffffffffffffffff0000000000000000} Gateway:2001:db8:1::1}], Routes:[{Dst:{IP:0.0.0.0 Mask:00000000} GW:<nil>} {Dst:{IP::: Mask:00000000000000000000000000000000} GW:<nil>} {Dst:{IP:192.168.0.0 Mask:ffff0000} GW:1.1.1.1} {Dst:{IP:2001:db8:2:: Mask:ffffffffffffffff0000000000000000} GW:2001:db8:3::1}], DNS:{Nameservers:[192.0.2.3] Domain: Search:[] Options:[]}
+[CIPO]2020/03/03 14:51:48 main.go:164: DELETING
+[CIPO]2020/03/03 14:51:48 main.go:85: ADDING
+[CIPO]2020/03/03 14:51:48 main.go:85: ADDING
+[CIPO]2020/03/03 14:51:48 main.go:164: DELETING
+[CIPO]2020/03/03 14:51:48 main.go:164: DELETING
+[CIPO]2020/03/03 14:51:48 main.go:85: ADDING
+[CIPO]2020/03/03 14:51:48 main.go:164: DELETING
+[CIPO]2020/03/03 14:51:48 main.go:164: DELETING
+[CIPO]2020/03/03 14:51:48 main.go:85: ADDING
+[CIPO]2020/03/03 14:51:48 main.go:164: DELETING
+[CIPO]2020/03/03 14:51:48 main.go:85: ADDING
+[CIPO]2020/03/03 14:51:48 main.go:164: DELETING
+[CIPO]2020/03/03 14:51:48 main.go:85: ADDING
+[CIPO]2020/03/03 14:51:48 main.go:85: ADDING
+[CIPO]2020/03/03 14:51:48 main.go:85: ADDING
+[CIPO]2020/03/03 14:51:48 main.go:85: ADDING
+[CIPO]2020/03/03 14:51:48 main.go:85: ADDING

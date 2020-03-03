@@ -30,7 +30,7 @@ import (
 	bv "github.com/containernetworking/plugins/pkg/utils/buildversion"
 )
 
-const defaultSocketPath = "/run/cni/cdhcp.sock"
+const defaultSocketPath = "/run/cni/dhcp.sock"
 
 func main() {
 	if len(os.Args) > 1 && os.Args[1] == "daemon" {
@@ -52,7 +52,7 @@ func main() {
 			os.Exit(1)
 		}
 	} else {
-		skel.PluginMain(cmdAdd, cmdCheck, cmdDel, version.All, bv.BuildString("dhcp"))
+		skel.PluginMain(cmdAdd, cmdCheck, cmdDel, version.All, bv.BuildString("cdhcp"))
 	}
 }
 

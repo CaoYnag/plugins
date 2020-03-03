@@ -35,7 +35,7 @@ import (
 
 const LineBreak = "\r\n"
 
-var _ = Describe("host-local Operations", func() {
+var _ = Describe("cipo Operations", func() {
 	It("allocates and releases addresses with ADD/DEL", func() {
 		const ifname string = "eth0"
 		const nspath string = "/some/where"
@@ -44,6 +44,8 @@ var _ = Describe("host-local Operations", func() {
 		Expect(err).NotTo(HaveOccurred())
 		defer os.RemoveAll(tmpDir)
 
+		init_log()
+		logger.Println("resolv: ", filepath.Join(tmpDir, "resolv.conf"))
 		err = ioutil.WriteFile(filepath.Join(tmpDir, "resolv.conf"), []byte("nameserver 192.0.2.3"), 0644)
 		Expect(err).NotTo(HaveOccurred())
 
@@ -53,7 +55,7 @@ var _ = Describe("host-local Operations", func() {
 		"type": "ipvlan",
 		"master": "foo0",
 			"ipam": {
-				"type": "host-local",
+				"type": "cipo",
 				"dataDir": "%s",
 				"resolvConf": "%s/resolv.conf",
 				"ranges": [
@@ -70,7 +72,7 @@ var _ = Describe("host-local Operations", func() {
 		}`, tmpDir, tmpDir)
 
 		args := &skel.CmdArgs{
-			ContainerID: "dummy",
+			ContainerID: "`dummy`",
 			Netns:       nspath,
 			IfName:      ifname,
 			StdinData:   []byte(conf),
@@ -81,6 +83,8 @@ var _ = Describe("host-local Operations", func() {
 			return cmdAdd(args)
 		})
 		Expect(err).NotTo(HaveOccurred())
+		logger.Println("raw:", string(raw))
+		logger.Println("r:", r);
 		Expect(strings.Index(string(raw), "\"version\":")).Should(BeNumerically(">", 0))
 
 		result, err := current.GetResult(r)
@@ -159,7 +163,7 @@ var _ = Describe("host-local Operations", func() {
 		"type": "ipvlan",
 		"master": "foo0",
 			"ipam": {
-				"type": "host-local",
+				"type": "cipo",
 				"dataDir": "%s",
 				"resolvConf": "%s/resolv.conf",
 				"ranges": [
@@ -174,7 +178,7 @@ var _ = Describe("host-local Operations", func() {
 		"type": "ipvlan",
 		"master": "foo1",
 			"ipam": {
-				"type": "host-local",
+				"type": "cipo",
 				"dataDir": "%s",
 				"resolvConf": "%s/resolv.conf",
 				"ranges": [
@@ -267,7 +271,7 @@ var _ = Describe("host-local Operations", func() {
 		"type": "ipvlan",
 		"master": "foo",
 			"ipam": {
-				"type": "host-local",
+				"type": "cipo",
 				"dataDir": "%s",
 				"resolvConf": "%s/resolv.conf",
 				"ranges": [
@@ -322,7 +326,7 @@ var _ = Describe("host-local Operations", func() {
 			"type": "ipvlan",
 			"master": "foo0",
 			"ipam": {
-				"type": "host-local",
+				"type": "cipo",
 				"subnet": "10.1.2.0/24",
 				"dataDir": "%s"
 			}
@@ -359,7 +363,7 @@ var _ = Describe("host-local Operations", func() {
 			"type": "ipvlan",
 			"master": "foo0",
 			"ipam": {
-				"type": "host-local",
+				"type": "cipo",
 				"subnet": "10.1.2.0/24",
 				"dataDir": "%s",
 				"resolvConf": "%s/resolv.conf"
@@ -425,7 +429,7 @@ var _ = Describe("host-local Operations", func() {
 			"type": "ipvlan",
 			"master": "foo0",
 			"ipam": {
-				"type": "host-local",
+				"type": "cipo",
 				"subnet": "10.1.2.0/24",
 				"dataDir": "%s"
 			}
@@ -476,7 +480,7 @@ var _ = Describe("host-local Operations", func() {
 			"type": "ipvlan",
 			"master": "foo0",
 			"ipam": {
-				"type": "host-local",
+				"type": "cipo",
 				"subnet": "10.1.2.0/24",
 				"dataDir": "%s"
 			}
@@ -511,7 +515,7 @@ var _ = Describe("host-local Operations", func() {
 			"type": "ipvlan",
 			"master": "foo0",
 			"ipam": {
-				"type": "host-local",
+				"type": "cipo",
 				"dataDir": "%s",
 				"ranges": [
 					[{ "subnet": "10.1.2.0/24" }]
@@ -559,7 +563,7 @@ var _ = Describe("host-local Operations", func() {
 			"type": "ipvlan",
 			"master": "foo0",
 			"ipam": {
-				"type": "host-local",
+				"type": "cipo",
 				"dataDir": "%s",
 				"ranges": [
 					[{ "subnet": "10.1.2.0/24" }],
@@ -609,7 +613,7 @@ var _ = Describe("host-local Operations", func() {
 			"type": "ipvlan",
 			"master": "foo0",
 			"ipam": {
-				"type": "host-local",
+				"type": "cipo",
 				"dataDir": "%s",
 				"ranges": [
 					[{"subnet":"172.16.1.0/24"}, { "subnet": "10.1.2.0/24" }],
@@ -656,7 +660,7 @@ var _ = Describe("host-local Operations", func() {
 			"type": "ipvlan",
 			"master": "foo0",
 			"ipam": {
-				"type": "host-local",
+				"type": "cipo",
 				"dataDir": "%s",
 				"ranges": [
 					[{ "subnet": "10.1.2.0/24" }],
@@ -688,7 +692,7 @@ var _ = Describe("host-local Operations", func() {
 })
 
 func getTmpDir() (string, error) {
-	tmpDir, err := ioutil.TempDir("", "host_local_artifacts")
+	tmpDir, err := ioutil.TempDir("", "cipo_artifacts")
 	if err == nil {
 		tmpDir = filepath.ToSlash(tmpDir)
 	}

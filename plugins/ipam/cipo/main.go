@@ -17,12 +17,15 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io"
+	"log"
 	"net"
+	"os"
 	"strings"
 
 	bv "github.com/containernetworking/plugins/pkg/utils/buildversion"
-	"github.com/containernetworking/plugins/plugins/ipam/host-local/backend/allocator"
-	"github.com/containernetworking/plugins/plugins/ipam/host-local/backend/disk"
+	"github.com/containernetworking/plugins/plugins/ipam/cipo/backend/allocator"
+	"github.com/containernetworking/plugins/plugins/ipam/cipo/backend/disk"
 
 	"github.com/containernetworking/cni/pkg/skel"
 	"github.com/containernetworking/cni/pkg/types"
@@ -30,7 +33,20 @@ import (
 	"github.com/containernetworking/cni/pkg/version"
 )
 
+var (
+	logger *log.Logger
+)
+
+func init_log() {
+	errFile, err := os.OpenFile("logs/logs.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	if err != nil {
+		log.Fatalln("打开日志文件失败：", err)
+	}
+	logger = log.New(io.MultiWriter(os.Stderr, errFile), "[CIPO]", log.Ldate|log.Ltime|log.Lshortfile)
+}
+
 func main() {
+	init_log()
 	skel.PluginMain(cmdAdd, cmdCheck, cmdDel, version.All, bv.BuildString("cipo"))
 }
 
@@ -43,7 +59,7 @@ func loadNetConf(bytes []byte) (*types.NetConf, string, error) {
 }
 
 func cmdCheck(args *skel.CmdArgs) error {
-
+	logger.Println("CHECKING")
 	ipamConf, _, err := allocator.LoadIPAMConfig(args.StdinData, args.Args)
 	if err != nil {
 		return err
@@ -66,6 +82,7 @@ func cmdCheck(args *skel.CmdArgs) error {
 }
 
 func cmdAdd(args *skel.CmdArgs) error {
+	logger.Println("CIPO ADDING")
 	ipamConf, confVersion, err := allocator.LoadIPAMConfig(args.StdinData, args.Args)
 	if err != nil {
 		return err
@@ -144,6 +161,7 @@ func cmdAdd(args *skel.CmdArgs) error {
 }
 
 func cmdDel(args *skel.CmdArgs) error {
+	logger.Println("DELETING")
 	ipamConf, _, err := allocator.LoadIPAMConfig(args.StdinData, args.Args)
 	if err != nil {
 		return err
